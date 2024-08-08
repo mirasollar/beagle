@@ -4,8 +4,11 @@ import openpyxl
 import re
 # import zipfile
 # from tempfile import NamedTemporaryFile
+import os
+
 
 uploaded_file = st.file_uploader("Choose a file")
+st.write(f"Uploaded file: {uploaded_file}")
 
 if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
     df_raw = pd.read_excel('rev.xlsx', nrows=20)
@@ -13,3 +16,4 @@ if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlf
     header_row = header_loc.index.item()
     df_agentury = pd.read_excel('rev.xlsx', header=header_row+1)
     st.write(df_agentury)
+    st.write(os.listdir())
