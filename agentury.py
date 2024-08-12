@@ -4,13 +4,13 @@ import openpyxl
 import re
 # import zipfile
 # from tempfile import NamedTemporaryFile
-from io import StringIO
+from io import BytesIO
 import os
 from pathlib import Path
 
 def saveFile(uploaded):
     with open(os.path.join(os.getcwd(),uploaded.name),"w") as f:
-        strIo= StringIO(uploaded.getvalue().decode("utf-8"))
+        strIo= BytesIO(uploaded.getvalue().decode("utf-8"))
         f.write(strIo.read())
         return os.path.join(os.getcwd(),uploaded.name)
 
