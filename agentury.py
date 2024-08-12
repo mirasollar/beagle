@@ -10,7 +10,7 @@ from pathlib import Path
 
 def saveFile(uploaded):
     with open(os.path.join(os.getcwd(),uploaded.name),"w") as f:
-        strIo= BytesIO(uploaded.getvalue().decode("utf-8"))
+        strIo= BytesIO(uploaded.getvalue())
         f.write(strIo.read())
         return os.path.join(os.getcwd(),uploaded.name)
 
