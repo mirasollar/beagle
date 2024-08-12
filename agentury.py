@@ -1,18 +1,22 @@
-import streamlit as st
-import pandas as pd
-import openpyxl
-import re
-# import zipfile
-# from tempfile import NamedTemporaryFile
-from io import BytesIO
 import os
-from pathlib import Path
+import pandas as pd
 
 def saveFile(uploaded):
-    with open(os.path.join(os.getcwd(),uploaded.name),"w") as f:
-        strIo= BytesIO(uploaded.getvalue())
-        f.write(strIo.read())
-        return os.path.join(os.getcwd(),uploaded.name)
+    # Určete cestu, kam se soubor uloží
+    file_path = os.path.join(os.getcwd(), uploaded.name)
+    
+    # Získání obsahu souboru jako bytes
+    content = uploaded.getvalue()
+    
+    # Načtení obsahu do pandas DataFrame
+    excel_data = pd.read_excel(BytesIO(content), engine='openpyxl')
+    
+    # Uložení souboru na disk
+    with open(file_path, "wb") as f:
+        f.write(content)
+    
+    return file_path, excel_data
+
 
 uploaded_file = st.file_uploader("Choose a file")
 
