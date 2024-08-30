@@ -106,4 +106,4 @@ if uploaded_file is not None:
 
 
 
-    st.write(f"Directory je: {os.listdir(split_files)}")
+    st.write(f"Directory je: {os.listdir("split_files")}")
