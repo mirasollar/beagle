@@ -117,7 +117,7 @@ if uploaded_file is not None:
     for i in range(len(agentury)):
         agentura = agentury[i]
         results_agentura = f"split_files\{agentura}"
-        print(results_agentura)
+        st.write(results_agentura)
         zip_file.write(results_agentura)
     zip_file.close()
 
