@@ -104,6 +104,9 @@ if uploaded_file is not None:
 
 
 
+    cwd = os.getcwd()
+    st.write(f"Current dir: {cwd}")
+    output_path = os.path.join(cwd, "split_files")
+    st.write(f"Output path: {output_path}")
 
-
-    st.write(f"Directory je: {os.listdir("split_files")}")
+    st.write(f"Obsah output_path: {os.listdir(output_path)}")
