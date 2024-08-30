@@ -26,10 +26,10 @@ uploaded_file = st.file_uploader("Choose a file")
 
 if uploaded_file is not None:
     fpath=saveFile(uploaded_file)
-    df_raw = pd.read_excel('rev.xlsx', nrows=20)
+    df_raw = pd.read_excel('/home/appuser/rev.xlsx', nrows=20)
     header_loc = df_raw[df_raw == 'Agentura'].dropna(axis=1, how='all').dropna(how='all')
     header_row = header_loc.index.item()
-    df_agentury = pd.read_excel('rev.xlsx', header=header_row+1)
+    df_agentury = pd.read_excel('/home/appuser/rev.xlsx', header=header_row+1)
     # st.write(df_agentury)
 
     df_agentury_rollup_loc = df_agentury[df_agentury['Agentura'] == 'Rollup']
@@ -58,7 +58,7 @@ if uploaded_file is not None:
     for row in df_agentury_end_loc.index:
         end_list.append(row+1)
 
-    source_file = 'rev.xlsx'
+    source_file = '/home/appuser/rev.xlsx'
     item_num = len(start_list)
 
     # zip_file = zipfile.ZipFile('splitted_agentury.zip', 'w')
