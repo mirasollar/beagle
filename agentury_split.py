@@ -4,6 +4,8 @@ import openpyxl
 import os
 from io import BytesIO
 import re
+from os.path import isfile, join
+import zipfile
 
 def makemydir(dirn):
     try:
@@ -102,11 +104,22 @@ if uploaded_file is not None:
         book.save(output_file)
 
 
-
-
     cwd = os.getcwd()
     st.write(f"Current dir: {cwd}")
-    output_path = os.path.join(cwd, "split_files")
-    st.write(f"Output path: {output_path}")
+    result_path = os.path.join(cwd, "split_files")
+    st.write(f"Output path: {result_path}")
 
-    st.write(f"Obsah output_path: {os.listdir(output_path)}")
+    st.write(f"Obsah output_path: {os.listdir(result_path)}")
+
+    agentury = [f for f in listdir(result_path) if isfile(join(result_path, f))]
+
+    zip_file = zipfile.ZipFile('agentury.zip', 'w')
+    for i in range(len(agentury)):
+        agentura = agentury[i]
+        results_agentura = f"split_files\{agentura}"
+        print(results_agentura)
+        zip_file.write(results_agentura)
+    zip_file.close()
+
+    st.write(f"Obsah current dir: {os.listdir()}")
+
