@@ -74,6 +74,7 @@ if uploaded_file is not None:
     # zip_file = zipfile.ZipFile('splitted_agentury.zip', 'w')
 
     for i in range(len(start_list)):
+        st.write(f"Number of the generated file: {i+1}")
         start_num = start_list[i]
         end_num = end_list[i]+1
         name = names[i]
@@ -122,4 +123,12 @@ if uploaded_file is not None:
     zip_file.close()
 
     st.write(f"Obsah current dir: {os.listdir()}")
+
+    with open("agentury.zip", "rb") as fp:
+        btn = st.download_button(
+            label="Download ZIP",
+            data=fp,
+            file_name="agentury.zip",
+            mime="application/zip"
+        )
 
