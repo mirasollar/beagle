@@ -5,6 +5,14 @@ import os
 from io import BytesIO
 import re
 
+def makemydir(dirn):
+    try:
+        os.makedirs(dirn)
+    except OSError:
+        pass
+
+makemydir("split_files")
+
 def saveFile(uploaded):
     # Určete cestu, kam se soubor uloží
     file_path = os.path.join(os.getcwd(), uploaded.name)
@@ -90,9 +98,9 @@ if uploaded_file is not None:
         sheet.delete_cols(1, 1)
         sheet.delete_cols(2, 1)
 
-        output_file = f'{name}.xlsx'
-
+        output_file = f'split_files/{name}.xlsx'
         book.save(output_file)
+
 
 
 
