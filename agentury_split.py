@@ -111,7 +111,7 @@ if uploaded_file is not None:
 
     st.write(f"Obsah output_path: {os.listdir(result_path)}")
 
-    agentury = [f for f in listdir(result_path) if isfile(join(result_path, f))]
+    agentury = [f for f in os.listdir(result_path) if isfile(join(result_path, f))]
 
     zip_file = zipfile.ZipFile('agentury.zip', 'w')
     for i in range(len(agentury)):
