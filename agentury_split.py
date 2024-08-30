@@ -116,7 +116,7 @@ if uploaded_file is not None:
     zip_file = zipfile.ZipFile('agentury.zip', 'w')
     for i in range(len(agentury)):
         agentura = agentury[i]
-        results_agentura = f"split_files\{agentura}"
+        results_agentura = f"split_files/{agentura}"
         st.write(results_agentura)
         zip_file.write(results_agentura)
     zip_file.close()
