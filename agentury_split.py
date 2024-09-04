@@ -137,15 +137,15 @@ if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlf
     uploaded_file
     # st.write(f"Obsah current dir: {os.listdir()}")
 
-    # uploaded_file = None
+    uploaded_file = None
 
-with open("agentury.zip", "rb") as fp:
-    btn = st.download_button(
-            label="Download ZIP",
-            data=fp,
-            file_name="agentury.zip",
-            mime="application/zip"
-        )
+    with open("agentury.zip", "rb") as fp:
+        btn = st.download_button(
+                label="Download ZIP",
+                data=fp,
+                file_name="agentury.zip",
+                mime="application/zip"
+            )
 
 try:
     shutil.rmtree('split_files')
