@@ -6,16 +6,9 @@ from io import BytesIO
 import re
 from os.path import isfile, join
 import zipfile
+import shutil
 
-def makemydir(dirn):
-    try:
-        os.makedirs(dirn)
-    except OSError:
-        pass
-
-makemydir("split_files")
-
-def saveFile(uploaded):
+def save_file(uploaded):
     # Určete cestu, kam se soubor uloží
     file_path = os.path.join(os.getcwd(), uploaded.name)
     
@@ -28,18 +21,38 @@ def saveFile(uploaded):
     # Uložení souboru na disk
     with open(file_path, "wb") as f:
         f.write(content)
-    
     return file_path, excel_data
 
+def make_dir(dirn):
+    try:
+        os.makedirs(dirn)
+    except OSError:
+        pass
+
+make_dir("split_files")
+
+def get_sheetnames_xlsx(filepath):
+    wb = openpyxl.load_workbook(filepath, read_only=True, keep_links=False)
+    return wb.sheetnames
+
+def remove_file(file_name):
+    if os.path.isfile(file_name):
+        os.remove(file_name)
+    else:
+        pass
 
 uploaded_file = st.file_uploader("Choose a file")
 
-if uploaded_file is not None:
-    fpath=saveFile(uploaded_file)
-    df_raw = pd.read_excel('/home/appuser/rev.xlsx', nrows=20)
+if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+    fpath=save_file(uploaded_file)
+    st.write(f"Uploaded file name: {uploaded_file.name}")
+    uploaded_file_name = uploaded_file.name
+    st.write(f"Sheet name: {get_sheetnames_xlsx(uploaded_file_name)[0]}")
+
+    df_raw = pd.read_excel(uploaded_file_name, nrows=20)
     header_loc = df_raw[df_raw == 'Agentura'].dropna(axis=1, how='all').dropna(how='all')
     header_row = header_loc.index.item()
-    df_agentury = pd.read_excel('/home/appuser/rev.xlsx', header=header_row+1)
+    df_agentury = pd.read_excel(uploaded_file_name, header=header_row+1)
     # st.write(df_agentury)
 
     df_agentury_rollup_loc = df_agentury[df_agentury['Agentura'] == 'Rollup']
@@ -68,13 +81,14 @@ if uploaded_file is not None:
     for row in df_agentury_end_loc.index:
         end_list.append(row+1)
 
-    source_file = '/home/appuser/rev.xlsx'
+    source_file = uploaded_file_name
     item_num = len(start_list)
 
-    # zip_file = zipfile.ZipFile('splitted_agentury.zip', 'w')
-
+    st.write("Creating split files...")
     for i in range(len(start_list)):
-        st.write(f"Number of the generated file: {i+1}")
+        num_mod = i+1
+        if num_mod % 10 == 0:
+            st.write(f"Number of finished files: {i+1} of the total {len(start_list)}")
         start_num = start_list[i]
         end_num = end_list[i]+1
         name = names[i]
@@ -84,7 +98,7 @@ if uploaded_file is not None:
         name = re.sub('\s', '_', name).lower()
     #     print(name)
         book = openpyxl.load_workbook(source_file)
-        sheet = book['1. Revenue agentury pilot RU...']
+        sheet = book[get_sheetnames_xlsx(uploaded_file_name)[0]]
         sheet.delete_rows(1, 4)
         
         if i == 0:
@@ -103,7 +117,6 @@ if uploaded_file is not None:
 
         output_file = f'split_files/{name}.xlsx'
         book.save(output_file)
-
 
     cwd = os.getcwd()
     st.write(f"Current dir: {cwd}")
@@ -132,3 +145,7 @@ if uploaded_file is not None:
             mime="application/zip"
         )
 
+        try:
+            shutil.rmtree('split_files')
+        except:
+            pass
