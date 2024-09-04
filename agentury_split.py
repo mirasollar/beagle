@@ -45,9 +45,9 @@ uploaded_file = st.file_uploader("Choose a file")
 
 if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
     fpath=save_file(uploaded_file)
-    st.write(f"Uploaded file name: {uploaded_file.name}")
+    # st.write(f"Uploaded file name: {uploaded_file.name}")
     uploaded_file_name = uploaded_file.name
-    st.write(f"Sheet name: {get_sheetnames_xlsx(uploaded_file_name)[0]}")
+    # st.write(f"Sheet name: {get_sheetnames_xlsx(uploaded_file_name)[0]}")
 
     df_raw = pd.read_excel(uploaded_file_name, nrows=20)
     header_loc = df_raw[df_raw == 'Agentura'].dropna(axis=1, how='all').dropna(how='all')
@@ -119,11 +119,11 @@ if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlf
         book.save(output_file)
 
     cwd = os.getcwd()
-    st.write(f"Current dir: {cwd}")
+    # st.write(f"Current dir: {cwd}")
     result_path = os.path.join(cwd, "split_files")
-    st.write(f"Output path: {result_path}")
+    # st.write(f"Output path: {result_path}")
 
-    st.write(f"Obsah output_path: {os.listdir(result_path)}")
+    # st.write(f"Obsah output_path: {os.listdir(result_path)}")
 
     agentury = [f for f in os.listdir(result_path) if isfile(join(result_path, f))]
 
@@ -131,11 +131,11 @@ if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlf
     for i in range(len(agentury)):
         agentura = agentury[i]
         results_agentura = f"split_files/{agentura}"
-        st.write(results_agentura)
+        # st.write(results_agentura)
         zip_file.write(results_agentura)
     zip_file.close()
 
-    st.write(f"Obsah current dir: {os.listdir()}")
+    # st.write(f"Obsah current dir: {os.listdir()}")
 
     with open("agentury.zip", "rb") as fp:
         btn = st.download_button(
