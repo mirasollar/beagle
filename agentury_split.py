@@ -147,7 +147,7 @@ with open("agentury.zip", "rb") as fp:
             mime="application/zip"
         )
 
-        try:
-            shutil.rmtree('split_files')
-        except:
-            pass
+try:
+    shutil.rmtree('split_files')
+except:
+    pass
