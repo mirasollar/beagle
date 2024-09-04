@@ -134,11 +134,13 @@ if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlf
         # st.write(results_agentura)
         zip_file.write(results_agentura)
     zip_file.close()
-
+    uploaded_file
     # st.write(f"Obsah current dir: {os.listdir()}")
 
-    with open("agentury.zip", "rb") as fp:
-        btn = st.download_button(
+    # uploaded_file = None
+
+with open("agentury.zip", "rb") as fp:
+    btn = st.download_button(
             label="Download ZIP",
             data=fp,
             file_name="agentury.zip",
