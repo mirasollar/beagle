@@ -100,6 +100,11 @@ if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlf
             output_file = f'split_files/{name}.xlsx'
             book.save(output_file)
 
+        book_filter = openpyxl.load_workbook(source_file)
+        sheet_filter = book_filter[get_sheetnames_xlsx(uploaded_file_name)[0]]
+        sheet_filter.delete_rows(header_row-1, 1000000)
+        book_filter.save('split_files/_filter_setting.xlsx')
+
         cwd = os.getcwd()
         result_path = os.path.join(cwd, "split_files")
         agentury = [f for f in os.listdir(result_path) if isfile(join(result_path, f))]
