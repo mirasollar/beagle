@@ -82,7 +82,7 @@ if uploaded_file is not None and uploaded_file.type == "application/vnd.openxmlf
             name = re.sub('\s', '_', name).lower()
             book = openpyxl.load_workbook(source_file)
             sheet = book[get_sheetnames_xlsx(uploaded_file_name)[0]]
-            sheet.delete_rows(1, 4)
+            sheet.delete_rows(1, header_row+1)
             
             if i == 0:
                 sheet.delete_rows(end_num+1, 10000)
