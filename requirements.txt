@@ -1,5 +1,6 @@
 streamlit
+streamlit_js_eval
 kbcstorage
-streamlit_card
-extra-streamlit-components
-openpyxl
+pandas
+PIL
+base64
