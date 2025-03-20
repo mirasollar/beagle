@@ -2,5 +2,5 @@ streamlit
 streamlit_js_eval
 kbcstorage
 pandas
-PIL
+pillow
 base64
