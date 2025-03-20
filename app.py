@@ -57,7 +57,7 @@ data = read_file()
 
 excluded_dogs = {sublist[0] for sublist in data["dogs"]} if data["dogs"] else set()
 
-all_dogs = [["german_shepherd.jpg", "German Shepherd"], ["labrador_retriever.jpg", "Labrador Retriever"]]
+all_dogs = [["bichon_frise.jpg", "Bichon Frise"], ["irish_setter.jpg", "Irish Setter"], ["german_shepherd.jpg", "German Shepherd"]]
 
 # all_dogs = [["german_shepherd.jpg", "German Shepherd"], ["labrador_retriever.jpg", "Labrador Retriever"], ["english_bulldog.jpg", "English Bulldog"],
 #             ["lhasa_apso.jpg", "Lhasa Apso"], ["jack_russel_terrier.jpg", "Jack Russell Terrier"], ["border_collie.jpg", "Border Collie"]]
