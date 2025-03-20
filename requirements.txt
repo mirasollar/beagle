@@ -1,5 +1,4 @@
 streamlit
-streamlit_js_eval
 kbcstorage
 pandas
 pillow
