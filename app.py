@@ -75,7 +75,7 @@ if filtered_dogs:
         st.session_state.dog_name = filtered_dogs[0][1]
 
     if 'number' not in st.session_state:
-        st.session_state.number = 55
+        st.session_state.number = 50
 
     def subtract():
         if st.session_state.number > 0:
