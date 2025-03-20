@@ -2,4 +2,3 @@ streamlit
 kbcstorage
 pandas
 pillow
-base64
