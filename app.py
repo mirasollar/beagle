@@ -41,9 +41,9 @@ def init_file():
         with open(TMP_FILE_PATH, "w") as f:
             json.dump({"dogs": []}, f)  # Uložíme prázdný JSON objekt
 
-def write_to_file(dog_name, result):
+def write_to_file(dog_name, result, attempts):
     data = read_file()  # Načteme aktuální obsah
-    data["dogs"].append([dog_name, result])  # Přidáme nové jméno do pole
+    data["dogs"].append([dog_name, result, attempts])  # Přidáme nové jméno do pole
     with open(TMP_FILE_PATH, "w") as f:
         json.dump(data, f)  # Přepíšeme soubor s novým seznamem
 
@@ -138,16 +138,16 @@ if filtered_dogs:
             if st.button("Continue", type="primary", use_container_width=True):
                 toggle_button()
                 if st.session_state.win == False: 
-                    write_to_file(st.session_state.dog_name, "Lost")
+                    write_to_file(st.session_state.dog_name, "Lost", "-")
                 else:
-                    write_to_file(st.session_state.dog_name, "Win")
+                    write_to_file(st.session_state.dog_name, "Win", str(st.session_state.count))
                 streamlit_js_eval(js_expressions="parent.window.location.reload()")
         else:
             if st.button("Go to Results Page", type="primary", use_container_width=True):
                 if st.session_state.win == False: 
-                    write_to_file(st.session_state.dog_name, "Lost")
+                    write_to_file(st.session_state.dog_name, "Lost", "-")
                 else:
-                    write_to_file(st.session_state.dog_name, "Win")
+                    write_to_file(st.session_state.dog_name, "Win", str(st.session_state.count))
                 streamlit_js_eval(js_expressions="parent.window.location.reload()")
 
 
@@ -172,7 +172,7 @@ if filtered_dogs:
 
 else:
     st.title("Results")
-    df = pd.DataFrame(data['dogs'], columns=['Breed', 'Result'])
+    df = pd.DataFrame(data['dogs'], columns=['Breed', 'Result', 'Attempts'])
     st.dataframe(df, hide_index=True)
 
     if st.button("New Game"):
