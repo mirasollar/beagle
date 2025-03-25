@@ -57,10 +57,10 @@ data = read_file()
 
 excluded_dogs = {sublist[0] for sublist in data["dogs"]} if data["dogs"] else set()
 
-all_dogs = [["bichon_frise.jpg", "Bichon Frise"], ["irish_setter.jpg", "Irish Setter"], ["german_shepherd.jpg", "German Shepherd"]]
+# all_dogs = [["bichon_frise.jpg", "Bichon Frise"], ["irish_setter.jpg", "Irish Setter"], ["german_shepherd.jpg", "German Shepherd"]]
 
-# all_dogs = [["german_shepherd.jpg", "German Shepherd"], ["labrador_retriever.jpg", "Labrador Retriever"], ["english_bulldog.jpg", "English Bulldog"],
-#             ["lhasa_apso.jpg", "Lhasa Apso"], ["jack_russel_terrier.jpg", "Jack Russell Terrier"], ["border_collie.jpg", "Border Collie"]]
+all_dogs = [["german_shepherd.jpg", "German Shepherd"], ["labrador_retriever.jpg", "Labrador Retriever"], ["english_bulldog.jpg", "English Bulldog"],
+            ["lhasa_apso.jpg", "Lhasa Apso"], ["jack_russel_terrier.jpg", "Jack Russell Terrier"], ["border_collie.jpg", "Border Collie"]]
 filtered_dogs = [dog for dog in all_dogs if dog[1] not in excluded_dogs]
 
 if filtered_dogs:
@@ -91,7 +91,7 @@ if filtered_dogs:
         st.session_state.win = False
 
     if st.session_state.win == False:
-        st.title(f"Number of remaining attempts: {6-st.session_state.count}")
+        st.subheader(f"Number of remaining attempts: :red[{6-st.session_state.count}]")
 
     st.markdown(blurred_centered_image(st.session_state.image_url, st.session_state.number), unsafe_allow_html=True) 
 
